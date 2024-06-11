@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+    <title>Login</title>
+</head>
+<body>
+    <%- include('../view/navbar.ejs') %>
+
+    <h2>Login</h2>
+    <form action="/api/user/login" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        
+        <input type="submit" value="Login"> 
+        <span>
+            <h1>OR</h1>
+        </span>
+        <h2>Don't Having an account? Register now</h2>
+        <a href="http://localhost:4000/api/user/signup">Signup</a> <!-- Correct link to the login route -->
+    </form>
+</body>
+</html>

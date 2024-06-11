@@ -3,6 +3,11 @@ const Schema = mongoose.Schema ;
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const userSchema = new Schema ({ 
+
+    name:{ 
+        type:String,
+        require:true, 
+    },
     email:{ 
         type:String,
         require:true, 
@@ -12,13 +17,17 @@ const userSchema = new Schema ({
     password: { 
         type:String , 
         required:true,
-    },
+    }, 
+    posts :[{ 
+      type: Schema.Types.ObjectId,
+      ref:"post"
+    }]
 }); 
 /** --- userModal.js. --- **/
 // do not use arrow functions as we need to use "this" keyword inside
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (name,email, password) {
     //Step 1. Validation
-    if (!email || !password) {
+    if (!name||!email || !password) {
       throw Error("One or more fields are empty");  //we will handle these errors in frontend
     }
     //here we use validator package to easily check the email & password
@@ -43,7 +52,7 @@ userSchema.statics.signup = async function (email, password) {
   
     //Step 4. Create hash of password + salt and finally insert it in DB
     const hash = await bcrypt.hash(password, salt);
-    const user = await this.create({ email, password: hash }); // here we are storing user in database
+    const user = await this.create({name , email, password: hash }); // here we are storing user in database
     
     return user;
   };  
