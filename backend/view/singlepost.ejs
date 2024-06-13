@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css" />
+    <link rel="stylesheet" href="/profile.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include('../view/navbar.ejs') %>
+    <h1>Single Post</h1>
+
+    <div class="main-container">
+      <div class="card">
+        <h3 class="card__title"><%= post.title %></h3>
+        <p class="card__content"><%= post.content %></p>
+        <div class="card__date"><%= post.date %></div> <!-- Assuming you have a date field in the post object -->
+        <div class="Like">
+          <a href="/api/user/like/<%= post._id %>">Like</a>
+          <span class="div"> <%= post.like.length %> </span>
+        </div>
+        <div class="comments">
+          <h2>Comments</h2>
+          <form action="/api/user/comment/<%= post._id %>" method="POST">
+            <input type="text" name="comment" placeholder="Write a comment" />
+            <button type="submit">Submit</button>
+          </form>
+          <h2>All Comments</h2>
+          <div class="comments-list">
+            <% post.Comments.reverse().forEach(comment => { %>
+            <div class="comment">
+              <h3><%= comment.content %></h3>
+              <p><%= comment.user.name %></p>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

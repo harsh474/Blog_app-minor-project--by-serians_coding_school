@@ -19,12 +19,12 @@
         <p class="card__content"><%= post.content %></p>
         <div class="card__date">April 15, 2022</div>
         <div class="Like">
-          <a href="/api/user/like/<%= post.id %>">Like</a> 
-          <span class="div"> 
-            <%= post.like.length %> 
-          </span>
-        </div> 
-        
+          <a href="/api/user/like/<%= post.id %>">Like</a>
+          <span class="div"> <%= post.like.length %> </span>
+        </div>
+        <div class="singlepost">
+          <a href="/api/user/post/<%= post.id %>">view post</a>
+        </div>
       </div>
 
       <% }) %>
