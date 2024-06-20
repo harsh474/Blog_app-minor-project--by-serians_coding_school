@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css"> 
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">  -->
     <link rel="stylesheet" href="/profile.css">
     <title>User Profile</title>
 </head>
@@ -12,27 +12,35 @@
     <%- include('../view/navbar.ejs') %>     
     <h1>User Profile</h1>
   
-    <% if (user) { %>
-        <p>Welcome <%= user.name %>!</p>  
-
+    <% if (user) { %> 
+        <div class="heading">
+        <p>Welcome <%= user.name %>! </p>  
+         <div class="image" > 
+             <img src="/images/uploads/<%=user.profilepic%>" alt="">
+         </div>
+        </div>
         <div class="main-container">
-            <% user.posts.forEach(post => { %>
-                <div class="card">
-                    <h3 class="card__title"><%= post.title %></h3>
-                    <p class="card__content"><%= post.content %></p>
-                    <div class="card__date">
-                        April 15, 2022
+            <% if (user.posts.length > 0) { %>
+                <% user.posts.forEach(post => { %>
+                    <div class="card">
+                        <h3 class="card__title"><%= post.title %></h3>
+                        <p class="card__content"><%= post.content %></p>
+                        <div class="card__date">
+                            April 15, 2022
+                        </div>
+                        <div class="edit-like">
+                            <div class="Edit"> 
+                                <a href="/api/user/editpost/<%= post.id %>">Edit</a>
+                            </div>
+                            <div class="Like">
+                                <a href="/api/user/like/<%= post.id %>">Like</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="edit-like">
-                    <div class="Edit"> 
-                        <a href="/api/user/editpost/<%= post.id %>">Edit</a>
-                    </div>
-                    <div class="Like">
-                        <a href="/api/user/like/<%= post.id %>">Like</a>
-                    </div>
-                </div>
-                </div>
-            <% }) %>  
+                <% }) %>  
+            <% } else { %>
+                <p>No posts</p>
+            <% } %>
         </div>
 
     <% } else { %>

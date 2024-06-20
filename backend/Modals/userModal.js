@@ -21,7 +21,11 @@ const userSchema = new Schema ({
     posts :[{ 
       type: Schema.Types.ObjectId,
       ref:"post"
-    }]
+    }], 
+    profilepic:{ 
+      type: String, 
+      default:"default.png"
+    }
 }); 
 /** --- userModal.js. --- **/
 // do not use arrow functions as we need to use "this" keyword inside

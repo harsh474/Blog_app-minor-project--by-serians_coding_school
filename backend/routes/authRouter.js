@@ -1,4 +1,6 @@
 //authRouter.js
+
+const upload = require("../config/multerconfig") ;
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const {
@@ -13,9 +15,11 @@ const {
   allpost,
   like,
   singlepost,
-  comment
+  comment,
+  image_upload
 } = require("../controllers/user_controller");
-// const auth = require("../middleware/authmiddleware");
+// const auth = require("../middleware/authmiddleware"); 
+
 const router = express.Router();
 const { auth } = require("../middleware/authmiddleware");
 router.get("/", (req, res) => {
@@ -61,8 +65,14 @@ router.get("/like/:id", protected_route, like);
 
 // comments rote
 
-router.post("/comment/:id",protected_route,comment);
+router.post("/comment/:id", protected_route, comment);
 
+// MULTER 
+router.get("/profile/upload", (req, res) => { 
+   res.render('upload');
+}) ;
+
+router.post("/profile/upload",protected_route,upload.single('image'), image_upload) ;
 // Protected route middleware
 // This middleware is used to protect routes that require a valid JWT
 function protected_route(req, res, next) {
@@ -85,5 +95,7 @@ function protected_route(req, res, next) {
     return null;
   }
 }
+
+
 
 module.exports = router;

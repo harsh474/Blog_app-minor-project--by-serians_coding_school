@@ -3,6 +3,7 @@ const Post = require("../Modals/postModal");
 const Comment = require("../Modals/commentModal")
 const jwt = require("jsonwebtoken");
 
+
 // function to create the JWT token
 
 const generateToken = (_id, email, password) => {
@@ -80,8 +81,9 @@ const createpost = async (req, res) => {
 };
 const profile = async (req, res) => {
   const user = await User.findById(req.user._id).populate("posts");
-  //  console.log("User is ",user);
-  res.render("profile", { user });
+  // .populate("posts");
+   console.log("User is ",user);
+  res.render("profile", { user:user });
 };
 const editpost = async (req, res) => {
   const id = req.params.id;
@@ -142,6 +144,30 @@ const comment = async(req,res) =>{
     await post.save() ; 
     res.redirect(`/api/user/post/${post_id}`) ;
 }
+
+const image_upload = async (req, res) => {
+  try {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+          return res.status(404).send({ message: "User not found" });
+      }
+
+      // Assuming the upload middleware has successfully added the file information to req.file
+      if (req.file && req.file.filename) {
+          user.profilepic = req.file.filename;
+          await user.save();
+          // return res.status(200).send({ message: "Profile picture updated successfully" });
+          res.redirect("/api/user/profile");
+      } else { 
+            
+          return res.status(400).send({ message: "No file uploaded" });
+      }
+  } catch (error) {
+      console.error("Error updating profile picture:", error);
+      return res.status(500).send({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   user_login,
   user_signup,
@@ -154,5 +180,6 @@ module.exports = {
   allpost,
   like, 
   singlepost,
-  comment
+  comment,
+  image_upload
 };

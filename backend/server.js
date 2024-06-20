@@ -13,10 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // CORS middleware setup
 app.use(cors({ origin: 'http://localhost:4000', credentials: true }));
 
-// app.use((req, res, next) => {
+// app.use((req, res, nex t) => {
 //     console.log("Request is made");
 //     console.log("Host name - " + req.hostname);
 //     console.log("Path - " + req.path);

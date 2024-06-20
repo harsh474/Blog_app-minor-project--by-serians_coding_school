@@ -83,4 +83,23 @@
 
 .card:hover .card__arrow svg {
   transform: translateX(3px);
+} 
+.image{
+  width: 160px; 
+  height: 160px; 
+  /* border: 2px solid rgb(223, 34, 34); */
+ 
+}
+img{  
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+.heading{ 
+  display: flex; 
+  /* justify-content: space-between;  */ 
+  gap: 34px;
+  align-items: center;
+  margin-bottom:  20px;  
+
 }
